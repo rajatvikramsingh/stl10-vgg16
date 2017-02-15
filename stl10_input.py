@@ -29,19 +29,6 @@ DATA_DIR = 'stl10_binary'
 # url of the binary data
 DATA_URL = 'http://ai.stanford.edu/~acoates/stl10/stl10_binary.tar.gz'
 
-
-# # path to the binary train file with image data
-# TRAIN_DATA_PATH = './data/stl10_binary/train_X.bin'
-#
-# # path to the binary train file with labels
-# TRAIN_LABEL_PATH = './data/stl10_binary/train_y.bin'
-#
-# # path to the binary test file with image data
-# TEST_DATA_PATH = './data/stl10_binary/test_X.bin'
-#
-# # path to the binary test file with labels
-# TEST_LABEL_PATH = './data/stl10_binary/test_y.bin'
-
 def read_labels(path_to_labels):
     """
     :param path_to_labels: path to the binary file containing labels from the STL-10 dataset
@@ -109,53 +96,21 @@ def plot_image(image):
     plt.show()
 
 
-# def download_and_extract():
-#     """
-#     Download and extract the STL-10 dataset
-#     :return: None
-#     """
-#     dest_directory = DATA_DIR
-#     if not os.path.exists(dest_directory):
-#         os.makedirs(dest_directory)
-#     filename = DATA_URL.split('/')[-1]
-#     filepath = os.path.join(dest_directory, filename)
-#     if not os.path.exists(filepath):
-#         def _progress(count, block_size, total_size):
-#             sys.stdout.write('\rDownloading %s %.2f%%' % (filename,
-#                                                           float(count * block_size) / float(total_size) * 100.0))
-#             sys.stdout.flush()
-#
-#         filepath, _ = urllib.urlretrieve(DATA_URL, filepath, reporthook=_progress)
-#         print('Downloaded', filename)
-#         tarfile.open(filepath, 'r:gz').extractall(dest_directory)
-
-
 def load_data():
     # download data if needed
-    # download_and_extract()
-
     path = get_file(DATA_DIR, origin=DATA_URL, untar=True)
-
-    # test to check if the image is read correctly
-    # with open(TRAIN_DATA_PATH) as f:
-    #     image = read_single_image(f)
-    #     plot_image(image)
 
     # test to check if the whole dataset is read correctly
     # path to the binary train file with image data
     train_data_path = os.path.join(path, 'train_X.bin')
-    # TRAIN_DATA_PATH = './data/stl10_binary/train_X.bin'
 
     # path to the binary train file with labels
-    # TRAIN_LABEL_PATH = './data/stl10_binary/train_y.bin'
     train_label_path = os.path.join(path, 'train_y.bin')
 
     # path to the binary test file with image data
-    # TEST_DATA_PATH = './data/stl10_binary/test_X.bin'
     test_data_path = os.path.join(path, 'test_X.bin')
 
     # path to the binary test file with labels
-    # TEST_LABEL_PATH = './data/stl10_binary/test_y.bin'
     test_label_path = os.path.join(path, 'test_y.bin')
 
     x_train = read_all_images(train_data_path)
@@ -164,7 +119,6 @@ def load_data():
     y_train = read_labels(train_label_path)
     print(y_train.shape)
 
-    # test to check if the whole dataset is read correctly
     x_test = read_all_images(test_data_path)
     print(x_test.shape)
 
